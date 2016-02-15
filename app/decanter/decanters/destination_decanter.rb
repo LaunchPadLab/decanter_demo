@@ -1,5 +1,4 @@
-class DestinationDecanter
-  include Decanter::Core
+class DestinationDecanter < Decanter::Base
   input :city, :string
   input :state, :string
   input :arrival_date, :date
