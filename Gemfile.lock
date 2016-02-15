@@ -1,7 +1,9 @@
-PATH
-  remote: ~/Documents/LaunchPad/decanter_files/decanter
+GIT
+  remote: https://github.com/LaunchPadLab/decanter.git
+  revision: 5649e8c11f99cc317dd717fe8520a5e7f594643e
+  branch: generators
   specs:
-    decanter (0.5.3)
+    decanter (0.5.4)
       activesupport
 
 GEM
