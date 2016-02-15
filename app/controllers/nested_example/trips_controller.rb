@@ -1,6 +1,6 @@
 class NestedExample::TripsController < ApplicationController
   def create
-    hash = Trip.decant(trip_params)
+    hash = TripDecanter.decant(trip_params)
     @trip = Trip.new(hash)
 
     if @trip.save
