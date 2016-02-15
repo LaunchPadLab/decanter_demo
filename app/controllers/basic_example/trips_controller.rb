@@ -1,7 +1,6 @@
 class BasicExample::TripsController < ApplicationController
   def create
-    hash = TripDecanter.decant(trip_params)
-    @trip = Trip.new(hash)
+    @trip = Trip.decant_new(params[:trip])
 
     if @trip.save
       redirect_to basic_example_trip_path(@trip)
