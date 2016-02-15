@@ -1,0 +1,18 @@
+<div class="row">
+  <h2>New Truck</h2>
+  <%= form_for [:step_example, @truck] do |f| %>
+    <fieldset>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :make_and_model %>
+      <%= text_field_tag 'truck[make_and_model]' %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :year %>
+      <%= f.text_field :year %>
+    </fieldset>
+    <%= f.submit 'Submit' %>
+  <% end %>
+</div>

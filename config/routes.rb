@@ -8,4 +8,7 @@ Rails.application.routes.draw do
     resources :trips
     resources :trips_no_decanter
   end
+  namespace :step_example do
+    resources :trucks
+  end
 end

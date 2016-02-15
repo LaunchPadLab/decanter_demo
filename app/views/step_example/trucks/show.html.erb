@@ -1,0 +1,5 @@
+<h2><%= @truck.name %></h2>
+
+<% @truck.attribute_names.each do |attr| %>
+  <p><strong><%= attr %>:</strong> <%= @truck[attr] %></p>
+<% end %>

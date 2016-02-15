@@ -1,0 +1,21 @@
+<div class="row">
+  <h2>New Truck</h2>
+  <%= form_for [:step_example, @truck] do |f| %>
+    <fieldset>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :make %>
+      <%= f.text_field :make %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :model %>
+      <%= f.text_field :model %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :year %>
+      <%= f.text_field :year %>
+    </fieldset>
+  <% end %>
+</div>

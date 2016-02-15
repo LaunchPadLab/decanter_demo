@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/LaunchPadLab/decanter.git
-  revision: e77def58e7a1655d50af2f8af0bfd60c151b8de6
+  revision: 9b904e7c57d92ef298cb562a562f0e758aa5e92a
   branch: master
   specs:
-    decanter (0.5.3)
+    decanter (0.5.4)
       activesupport
 
 GEM
