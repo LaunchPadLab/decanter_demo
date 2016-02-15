@@ -22,13 +22,12 @@ module DecanterDemo
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-    # config.autoload_paths += Dir["#{config.root}/app/decanters/**/"]
-    config.paths.add "app/decanters", eager_load: true
+
+    config.paths.add "app/decanter", eager_load: true
     config.to_prepare do
-        Dir[ File.expand_path(Rails.root.join("app/decanters/*.rb")) ].each do |file|
-            require_dependency file
-        end
+      Dir[ File.expand_path(Rails.root.join("app/decanter/**/*.rb")) ].each do |file|
+        require_dependency file
+      end
     end
-    # Dir[Rails.root.join('app', 'decanters', '*.rb')].each { |f| require f }
   end
 end
