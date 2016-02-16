@@ -1,7 +1,6 @@
 class SquasherExample::TripsController < ApplicationController
   def create
-    decanted_hash = SquashedTripDecanter.decant(params[:trip])
-    @trip = Trip.new(decanted_hash)
+    @trip = SquashedTripDecanter.decant_new(params[:trip])
 
     if @trip.save
       redirect_to basic_example_trip_path(@trip)
