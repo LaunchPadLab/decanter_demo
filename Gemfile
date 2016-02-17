@@ -16,6 +16,7 @@ gem 'figaro'
 gem 'pickadate-rails'
 gem 'decanter'
 # gem 'decanter', path: '~/Documents/LaunchPad/decanter_files/decanter', branch: 'master'
+# gem 'decanter', path: '~/LaunchpadLab/decanter', branch: 'master'
 
 group :development do
   gem 'better_errors'
