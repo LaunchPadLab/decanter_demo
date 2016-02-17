@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
   resources :trips
   namespace :basic_example do
     resources :trips
