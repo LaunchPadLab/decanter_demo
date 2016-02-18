@@ -9,9 +9,13 @@ Overview
 3. Write trips/new
 4. Add create action to controller
 5. Show that it fails
-6. Generate Destinations resource
-7. Modify code for destination as nested resource to trip
-8. Show Decanter
+6. Make it succeed with manual parsing
+7. Generate Destinations resource
+8. Modify code for destination as nested resource to trip
+9. Show that it fails
+10. Make it succeed with manual parsing
+11. Show Decanter
+
 
 Generate Trips resource
 ---
@@ -21,12 +25,14 @@ rails g resource Trip name:string start_date:date end_date:date
 rake db:migrate
 ```
 
+
 Validations
 ---
 
 ```ruby
 validates_presence_of :name, :start_date, :end_date
 ```
+
 
 Write trips/new
 ---
@@ -51,6 +57,7 @@ Write trips/new
   </div>
 <% end %>
 ```
+
 
 Add Create Action to Controller
 ---
@@ -84,6 +91,7 @@ Add Create Action to Controller
       params.require(:trip).permit(:name, :start_date, :end_date)
     end
 ```
+
 
 Generate Destinations Resource
 ---
@@ -146,9 +154,16 @@ Modify code for destination as nested resource to trip
 <% end %>
 ```
 
-** update create action **
+** update create and new action **
 
 ```ruby
+  def new
+    @trip = Trip.new
+    2.times do |i|
+      @trip.destinations.build
+    end
+  end
+
   def create
     @trip = Trip.new(trip_params)
     @trip.start_date = Date.strptime(trip_params[:start_date], '%m/%d/%Y') if trip_params[:start_date].present?
@@ -192,7 +207,6 @@ restart server
 
 ```
 rails g decanter Trip name:string start_date:date end_date:date destinations:has_many
-
 rails g decanter Destination city:string state:string arrival_date:date departure_date:date
 ```
 
@@ -201,110 +215,14 @@ Update trips_controller
 
 1. Remove code above @trip.save and add: @trip = Trip.decant_new(trip_params)
 
-
-Write trips_controller_spec.rb test
+Show DateParser
 ---
 
-Show trips.rb factory too.
+- parse_format
+- look at source code on github
 
-```ruby
-let(:trip_attributes) { attributes_for(:trip) }
+Show Custom Parser
+---
 
-describe '#create' do
-  subject { post :create, trip: trip_attributes }
-  it { is_expected.to change { Trip.count }.by 1 }
-  # it { is_expected.to redirect_to trips_path }
-end
-```
-
-```
-be rspec
-```
-
-
-```ruby
-# models/trip.rb
-class Trip < ActiveRecord::Base
-  has_many :destinations
-  accepts_nested_attributes_for :destinations
-
-  validates_presence_of :name, :start_date, :end_date
-end
-```
-
-```ruby
-# models/destination.rb
-class Destination < ActiveRecord::Base
-  validates_presence_of :city, :state, :arrival_date, :departure_date
-  belongs_to :trip
-end
-```
-
-```ruby
-# controllers/trips_controller.rb
-
-def new
-  @trip = Trip.new
-  build_destinations
-end
-
-def create
-end
-
-private
-
-  def build_destinations
-    3.times do |i|
-      @trip.destinations.build(name: "Destination #{i}")
-    end
-  end
-```
-
-views/trips/new.html.erb
-
-```erb
-<div class="row">
-  <h2>New Trip</h2>
-  <%= form_for(@trip) do |f| %>
-    <fieldset>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :start_date %>
-      <%= f.text_field :start_date, class: 'datepicker' %>
-    </fieldset>
-    <fieldset>
-      <%= f.label :end_date %>
-      <%= f.text_field :end_date, class: 'datepicker' %>
-    </fieldset>
-    <ul class="destinations">
-      <h3>Destinations</h3>
-      <%= f.fields_for :destinations do |ff| %>
-        <li>
-          <fieldset>
-            <%= ff.label :city %>
-            <%= ff.text_field :city %>
-          </fieldset>
-          <fieldset>
-            <%= ff.label :state %>
-            <%= ff.text_field :state %>
-          </fieldset>
-          <fieldset>
-            <%= ff.label :arrival_date %>
-            <%= ff.text_field :arrival_date, class: 'datepicker' %>
-          </fieldset>
-          <fieldset>
-            <%= ff.label :departure_date %>
-            <%= ff.text_field :departure_date, class: 'datepicker' %>
-          </fieldset>
-        </li>
-      <% end %>
-    </ul>
-    <fieldset>
-      <%= f.submit %>
-    </fieldset>
-  <% end %>
-</div>
-
-```
+- rails g parser Date
+-
