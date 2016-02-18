@@ -241,4 +241,21 @@ add_column :trips, :month, :integer
 add_column :trips, :year, :integer
 ```
 
-input [:day, :month, :year]
+```erb
+  <div>
+    <%= f.label :day %>
+    <%= f.text_field :day %>
+  </div>
+  <div>
+    <%= f.label :month %>
+    <%= f.text_field :month %>
+  </div>
+  <div>
+    <%= f.label :year %>
+    <%= f.text_field :year %>
+  </div>
+```
+
+```ruby
+input [:day, :month, :year], :date_squash, key: :start_date
+```
