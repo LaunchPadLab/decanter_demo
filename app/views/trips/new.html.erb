@@ -1,0 +1,48 @@
+<%= form_for @trip do |f| %>
+  <p style="color:red;"><%= f.object.errors.full_messages.join(", ") %></p>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :day %>
+    <%= f.text_field :day %>
+  </div>
+  <div>
+    <%= f.label :month %>
+    <%= f.text_field :month %>
+  </div>
+  <div>
+    <%= f.label :year %>
+    <%= f.text_field :year %>
+  </div>
+  <div>
+    <%= f.label :end_date %>
+    <%= f.text_field :end_date, class: 'datepicker' %>
+  </div>
+  <ul>
+    <% f.fields_for :destinations do |destination_builder| %>
+      <li>
+        <div>
+          <%= destination_builder.label :city %>
+          <%= destination_builder.text_field :city %>
+        </div>
+        <div>
+          <%= destination_builder.label :state %>
+          <%= destination_builder.text_field :state %>
+        </div>
+        <div>
+          <%= destination_builder.label :arrival_date %>
+          <%= destination_builder.text_field :arrival_date, class: 'datepicker' %>
+        </div>
+        <div>
+          <%= destination_builder.label :departure_date %>
+          <%= destination_builder.text_field :departure_date, class: 'datepicker' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

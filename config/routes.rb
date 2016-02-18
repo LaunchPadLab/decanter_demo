@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'home#index'
+  resources :trips
+  root to: 'trips#new'
 end

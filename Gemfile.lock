@@ -97,6 +97,8 @@ GEM
     concurrent-ruby (1.0.0)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
+    decanter (0.6.2)
+      activesupport
     diff-lcs (1.2.5)
     em-hiredis (0.3.1)
       eventmachine (~> 1.0)
@@ -271,6 +273,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.1.0)
   database_cleaner
+  decanter
   factory_girl_rails
   faker
   figaro
