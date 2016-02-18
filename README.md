@@ -241,6 +241,10 @@ add_column :trips, :month, :integer
 add_column :trips, :year, :integer
 ```
 
+```
+rake db:migrate
+```
+
 ```erb
   <div>
     <%= f.label :day %>
