@@ -224,5 +224,6 @@ Show DateParser
 Show Custom Parser
 ---
 
-- rails g parser Date
--
+```
+rails g parser Date
+```
