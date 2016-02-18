@@ -227,3 +227,18 @@ Show Custom Parser
 ```
 rails g parser Date
 ```
+
+Show Squasher (if time permits)
+---
+
+```
+rails g migration AddDateValuesToTrip
+```
+
+```
+add_column :trips, :day, :integer
+add_column :trips, :month, :integer
+add_column :trips, :year, :integer
+```
+
+input [:day, :month, :year]
