@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:LaunchPadLab/decanter.git
+  revision: 2188d0a401c1c24c6aefa662ca381a76f7de0fc0
+  branch: autoload
+  specs:
+    decanter (0.6.2)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,7 +94,7 @@ GEM
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
     cliver (0.3.2)
-    coderay (1.1.0)
+    coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -97,8 +105,6 @@ GEM
     concurrent-ruby (1.0.0)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    decanter (0.6.2)
-      activesupport
     diff-lcs (1.2.5)
     em-hiredis (0.3.1)
       eventmachine (~> 1.0)
@@ -111,7 +117,7 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faker (1.6.1)
+    faker (1.6.2)
       i18n (~> 0.5)
     faye-websocket (0.10.2)
       eventmachine (>= 0.12.0)
@@ -273,7 +279,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.1.0)
   database_cleaner
-  decanter
+  decanter!
   factory_girl_rails
   faker
   figaro

@@ -14,7 +14,9 @@ gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'figaro'
 gem 'pickadate-rails'
-gem 'decanter'
+# gem 'decanter'
+# gem 'decanter', path: '~/LaunchpadLab/decanter'
+gem 'decanter', git: 'git@github.com:LaunchPadLab/decanter.git', branch: 'autoload'
 
 group :development do
   gem 'better_errors'

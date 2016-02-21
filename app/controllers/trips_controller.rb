@@ -5,7 +5,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.decant_new(params[:trip])
-    parse_start_date
+    # parse_start_date
 
     if @trip.save
       redirect_to trips_path
@@ -17,7 +17,7 @@ class TripsController < ApplicationController
   def update
     @trip = Trip.find(params[:id])
 
-    parse_start_date
+    # parse_start_date
   end
 
   def parse_start_date
