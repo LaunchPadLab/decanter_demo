@@ -1,7 +1,5 @@
-GIT
-  remote: git@github.com:LaunchPadLab/decanter.git
-  revision: 2188d0a401c1c24c6aefa662ca381a76f7de0fc0
-  branch: autoload
+PATH
+  remote: ~/LaunchpadLab/decanter
   specs:
     decanter (0.6.2)
       activesupport
