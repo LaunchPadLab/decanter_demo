@@ -97,7 +97,7 @@ GEM
     concurrent-ruby (1.0.0)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    decanter (0.6.2)
+    decanter (0.7.0)
       activesupport
     diff-lcs (1.2.5)
     em-hiredis (0.3.1)

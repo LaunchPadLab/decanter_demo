@@ -15,6 +15,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'figaro'
 gem 'pickadate-rails'
 gem 'decanter'
+# gem 'decanter', path: '~/Documents/LaunchPad/decanter_files/decanter', branch: 'master'
 
 group :development do
   gem 'better_errors'
