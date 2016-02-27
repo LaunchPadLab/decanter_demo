@@ -5,8 +5,7 @@ class TripsController < ApplicationController
   end
 
   def create
-    hash = Trip.decant(params[:trip])
-    raise "hello"
+    hash = Trip.decant_create(params[:trip], decanter: 'StoopDecanter')
   end
 
   private

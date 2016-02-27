@@ -1,3 +1,9 @@
+PATH
+  remote: ~/LaunchpadLab/decanter
+  specs:
+    decanter (0.7.0)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,9 +53,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (7.0.0)
-    autoprefixer-rails (6.3.3)
+    autoprefixer-rails (6.3.3.1)
       execjs
-      json
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -86,7 +91,7 @@ GEM
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
     cliver (0.3.2)
-    coderay (1.1.0)
+    coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -94,11 +99,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.0)
+    concurrent-ruby (1.0.1)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    decanter (0.7.0)
-      activesupport
     diff-lcs (1.2.5)
     em-hiredis (0.3.1)
       eventmachine (~> 1.0)
@@ -111,9 +114,9 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faker (1.6.1)
+    faker (1.6.3)
       i18n (~> 0.5)
-    faye-websocket (0.10.2)
+    faye-websocket (0.10.3)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     figaro (1.1.1)
@@ -138,7 +141,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.99)
+    mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -231,11 +234,11 @@ GEM
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     slop (3.6.0)
-    spring (1.6.3)
+    spring (1.6.4)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.0.1)
+    sprockets-rails (3.0.3)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -273,7 +276,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.1.0)
   database_cleaner
-  decanter
+  decanter!
   factory_girl_rails
   faker
   figaro
