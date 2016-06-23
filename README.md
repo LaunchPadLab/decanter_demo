@@ -21,7 +21,7 @@ Generate Trips resource
 ---
 
 ```
-rails g resource Trip name:string start_date:date end_date:date
+rails g resource Trip name:string start_date:date budget:float
 rake db:migrate
 ```
 
@@ -30,7 +30,7 @@ Validations
 ---
 
 ```ruby
-validates_presence_of :name, :start_date, :end_date
+validates_presence_of :name, :start_date, :budget
 ```
 
 
@@ -49,8 +49,8 @@ Write trips/new
     <%= f.text_field :start_date, class: 'datepicker' %>
   </div>
   <div>
-    <%= f.label :end_date %>
-    <%= f.text_field :end_date, class: 'datepicker' %>
+    <%= f.label :cost %>
+    <%= f.text_field :budget, placeholder: '$1,500' %>
   </div>
   <div>
     <%= f.submit %>
@@ -88,7 +88,7 @@ Add Create Action to Controller
   private
 
     def trip_params
-      params.require(:trip).permit(:name, :start_date, :end_date)
+      params.require(:trip).permit(:name, :start_date, :budget)
     end
 ```
 
@@ -97,18 +97,18 @@ Generate Destinations Resource
 ---
 
 ```
-rails g model Destination arrival_date:date departure_date:date city:string state:string trip:references
+rails g model Destination arrival_date:date departure_date:date percent_of_budget:float location:string trip:references
 rake db:migrate
 ```
 
 Modify code for destination as nested resource to trip
 ---
 
-1. validates_presence_of :arrival_date, :departure_date, :city, :state
+1. validates_presence_of :arrival_date, :departure_date, :location, :percent_of_budget
 2. has_many :destinations
 3. accepts_nested_attributes_for :destinations
 4. update form (see below)
-5. update strong_params: destinations_attributes: [:city, :state, :arrival_date, :departure_date]
+5. update strong_params: destinations_attributes: [:location, :percent_of_budget, :arrival_date, :departure_date]
 6. update create action (see below)
 
 ** update form **
@@ -131,12 +131,8 @@ Modify code for destination as nested resource to trip
   <ul>
     <%= f.fields_for :destinations do |destination_builder| %>
       <div>
-        <%= destination_builder.label :city %>
-        <%= destination_builder.text_field :city %>
-      </div>
-      <div>
-        <%= destination_builder.label :state %>
-        <%= destination_builder.text_field :state %>
+        <%= destination_builder.label :location %>
+        <%= destination_builder.text_field :location %>
       </div>
       <div>
         <%= destination_builder.label :arrival_date %>
@@ -145,6 +141,10 @@ Modify code for destination as nested resource to trip
       <div>
         <%= destination_builder.label :departure_date %>
         <%= destination_builder.text_field :departure_date, class: 'datepicker' %>
+      </div>
+      <div>
+        <%= destination_builder.label :percent_of_budget %>
+        <%= destination_builder.text_field :percent_of_budget, placeholder: '10%' %>
       </div>
     <% end %>
   </ul>
@@ -167,7 +167,6 @@ Modify code for destination as nested resource to trip
   def create
     @trip = Trip.new(trip_params)
     @trip.start_date = Date.strptime(trip_params[:start_date], '%m/%d/%Y') if trip_params[:start_date].present?
-    @trip.end_date = Date.strptime(trip_params[:end_date], '%m/%d/%Y') if trip_params[:end_date].present?
 
     @trip.destinations.each_with_index do |destination, index|
       arrival_date = trip_params[:destinations_attributes]["#{index}"][:arrival_date]
