@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-gem 'rails', '5.0.0.beta1'
+gem 'rails', '5.0.0.rc2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
 gem 'figaro'
 gem 'pickadate-rails'
 
