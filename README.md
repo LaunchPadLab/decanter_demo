@@ -76,7 +76,7 @@ Add Create Action to Controller
   end
 
   def create
-    @trip = Trip.new(trip_params)
+    @trip = Trip.new(trip_params)    
 
     if @trip.save
       redirect_to trips_path
@@ -92,23 +92,50 @@ Add Create Action to Controller
     end
 ```
 
+Make it succeed manually
+---
+
+def create
+  @trip = Trip.new(trip_params)    
+
+  start_date = trip_params[:start_date]
+  parsed_start_date = Date.strptime(start_date, '%m/%d/%Y')
+  @trip.start_date = parsed_start_date
+
+  budget = trip_params[:budget]
+  regex = /(\d|[.])/
+  parsed_budget = budget.scan(regex).join.to_f
+  @trip.budget = parsed_budget
+
+  respond_to do |format|
+    if @trip.save
+      format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
+      format.json { render :show, status: :created, location: @trip }
+    else
+      format.html { render :new }
+      format.json { render json: @trip.errors, status: :unprocessable_entity }
+    end
+  end
+end
+
+
 
 Generate Destinations Resource
 ---
 
 ```
-rails g model Destination arrival_date:date departure_date:date percent_of_budget:float location:string trip:references
+rails g model Destination arrival_date:date location:string percent_of_budget:float trip:references
 rake db:migrate
 ```
 
 Modify code for destination as nested resource to trip
 ---
 
-1. validates_presence_of :arrival_date, :departure_date, :location, :percent_of_budget
+1. validates_presence_of :arrival_date, :location, :percent_of_budget
 2. has_many :destinations
 3. accepts_nested_attributes_for :destinations
 4. update form (see below)
-5. update strong_params: destinations_attributes: [:location, :percent_of_budget, :arrival_date, :departure_date]
+5. update strong_params: destinations_attributes: [:arrival_date, :location, :percent_of_budget]
 6. update create action (see below)
 
 ** update form **
@@ -130,6 +157,7 @@ Modify code for destination as nested resource to trip
   </div>
   <ul>
     <%= f.fields_for :destinations do |destination_builder| %>
+      <h4>Add Destination</h4>
       <div>
         <%= destination_builder.label :location %>
         <%= destination_builder.text_field :location %>
@@ -137,10 +165,6 @@ Modify code for destination as nested resource to trip
       <div>
         <%= destination_builder.label :arrival_date %>
         <%= destination_builder.text_field :arrival_date, class: 'datepicker' %>
-      </div>
-      <div>
-        <%= destination_builder.label :departure_date %>
-        <%= destination_builder.text_field :departure_date, class: 'datepicker' %>
       </div>
       <div>
         <%= destination_builder.label :percent_of_budget %>
@@ -166,19 +190,32 @@ Modify code for destination as nested resource to trip
 
   def create
     @trip = Trip.new(trip_params)
-    @trip.start_date = Date.strptime(trip_params[:start_date], '%m/%d/%Y') if trip_params[:start_date].present?
+
+    start_date = trip_params[:start_date]
+    parsed_start_date = Date.strptime(start_date, '%m/%d/%Y')
+    @trip.start_date = parsed_start_date
+
+    budget = trip_params[:budget]
+    regex = /(\d|[.])/
+    parsed_budget = budget.scan(regex).join.to_f
+    @trip.budget = parsed_budget
 
     @trip.destinations.each_with_index do |destination, index|
-      arrival_date = trip_params[:destinations_attributes]["#{index}"][:arrival_date]
-      departure_date = trip_params[:destinations_attributes]["#{index}"][:departure_date]
+      destination_params = trip_params[:destinations_attributes]["#{index}"]
+      arrival_date = destination_params[:arrival_date]
       destination.arrival_date = Date.strptime(arrival_date, '%m/%d/%Y') if arrival_date.present?
-      destination.departure_date = Date.strptime(departure_date, '%m/%d/%Y') if departure_date.present?
+      parsed_percent = destination_params[:percent_of_budget].scan(regex).join.to_f
+      destination.percent_of_budget = parsed_percent / 100.0
     end
 
-    if @trip.save
-      redirect_to trips_path
-    else
-      render 'new'
+    respond_to do |format|
+      if @trip.save
+        format.html { redirect_to @trip, notice: 'Trip was successfully created.' }
+        format.json { render :show, status: :created, location: @trip }
+      else
+        format.html { render :new }
+        format.json { render json: @trip.errors, status: :unprocessable_entity }
+      end
     end
   end
 ```
@@ -191,22 +228,11 @@ Show Decanter
 gem 'decanter'
 ```
 
-application.rb:
-
-```ruby
-config.paths.add "app/decanter", eager_load: true
-config.to_prepare do
-  Dir[ File.expand_path(Rails.root.join("app/decanter/**/*.rb")) ].each do |file|
-    require_dependency file
-  end
-end
-```
-
 restart server
 
 ```
-rails g decanter Trip name:string start_date:date end_date:date destinations:has_many
-rails g decanter Destination city:string state:string arrival_date:date departure_date:date
+rails g decanter Trip name:string start_date:date budget:float destinations:has_many
+rails g decanter Destination arrival_date:date location:string percent_of_budget:float
 ```
 
 Update trips_controller
